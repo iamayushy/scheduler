@@ -6,11 +6,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function WeekDay() {
   const { prevWeek, nextWeek, currentWeek:currentDate } = useCalendar();
-  const [weekDates, setWeekDates] = useState(getWeekDates(new Date()));
+  const [weekDates, setWeekDates] = useState(getWeekDates());
   
   // Update week dates when current date changes
   useEffect(() => {
-    setWeekDates(getWeekDates(currentDate));
+    setWeekDates(getWeekDates());
   }, [currentDate]);
   
   // Handle navigation

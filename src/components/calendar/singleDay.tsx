@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
 import useCalendar from "../../hooks/calendar";
 import Button from "../ui/button";
-import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function SingleDay() {
   const { prevDay, nextDay, currentDay } = useCalendar();
@@ -55,7 +54,7 @@ export default function SingleDay() {
         
         {/* Events container */}
         <div>
-          {timeSlots.map((hour, index) => (
+          {timeSlots.map((_hour, index) => (
             <div 
               key={index} 
               className="h-20 border-b border-gray-200 relative hover:bg-gray-50 transition-colors"
