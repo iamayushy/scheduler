@@ -11,7 +11,7 @@ export default function useCalendar() {
 
   const [year, setYear] = useState(initialYear);
   const [month, setMonth] = useState(initialMonth);
-  const [totalDays, setTotalDays] = useState(
+  const [totalDays, setTotalDays] = useState(() =>
     getTotalDaysInMonth(initialYear, initialMonth)
   );
   const [currentWeek, setCurrentWeek] = useState<Date>(new Date());
@@ -26,7 +26,7 @@ export default function useCalendar() {
     const prevDay = new Date(currentDay);
     prevDay.setDate(currentDay.getDate() - 1);
     setCurrentDay(prevDay);
-  }
+  };
   const nextWeek = () => {
     const nextWeek = new Date(currentWeek);
     nextWeek.setDate(currentWeek.getDate() + 7);
@@ -62,8 +62,6 @@ export default function useCalendar() {
       setTotalDays(getTotalDaysInMonth(year, prevMonth));
     }
   };
-
-  
 
   return {
     year,

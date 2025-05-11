@@ -1,96 +1,102 @@
-import { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import useCalendar from "../../hooks/calendar";
 import Button from "../ui/button";
-import { getWeekDates } from "../../utils/calendar";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { getWeek } from "../../utils/calendar";
+import withCalendarAction from "../../hoc/calendar";
 
-export default function WeekDay() {
-  const { prevWeek, nextWeek, currentWeek:currentDate } = useCalendar();
-  const [weekDates, setWeekDates] = useState(getWeekDates());
-  
-  // Update week dates when current date changes
-  useEffect(() => {
-    setWeekDates(getWeekDates());
-  }, [currentDate]);
-  
-  // Handle navigation
-  const handlePrevWeek = () => {
-    prevWeek();
+function WeekDay({onDateSelect}: any) {
+  const { currentWeek, prevWeek, nextWeek } = useCalendar();
+
+  const generateWeekDates = () => {
+    const dates = [];
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(currentWeek);
+      date.setDate(currentWeek.getDate() + i);
+      dates.push(date);
+    }
+
+    return dates;
   };
-  
-  const handleNextWeek = () => {
-    nextWeek();
-  };
-  
-  // Create time slots from 8 AM to 8 PM
-  const timeSlots = Array.from({ length: 13 }, (_, i) => i + 8);
-  
+
+  const weekDates = generateWeekDates();
+  const timeLine = Array.from({ length: 13 }, (_, index) => index + 8);
+
   return (
-    <section className="p-4 bg-white rounded-md">
-      <header className="flex justify-end items-center gap-4 mb-4">
-        <Button
-          size="sm"
-          onClick={handlePrevWeek}
-          className="px-4 py-2 bg-blue-500 text-white rounded-md"
-        >
+    <section className="p-4 bg-white h-[calc(100vh-5rem)] flex flex-col">
+      <div className="flex justify-end items-center mb-4 gap-4">
+        <div className="font-semibold">
+          {weekDates[0].getMonth() !== weekDates[6].getMonth()
+            ? `${weekDates[0].toLocaleDateString("en-US", {
+                month: "long",
+              })} - ${weekDates[6].toLocaleDateString("en-US", {
+                month: "long",
+              })} ${weekDates[6].getFullYear()}`
+            : weekDates[0].toLocaleDateString("en-US", {
+                month: "long",
+                year: "numeric",
+              })}
+        </div>
+        <div className="flex justify-end items-center gap-1">
+        <Button onClick={prevWeek} variant="outline" size="sm">
           <ChevronLeft />
         </Button>
-        <div className="text-lg font-semibold">
-          {`${weekDates[0].toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${weekDates[6].toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`}
-        </div>
-        <Button
-          size="sm"
-          onClick={handleNextWeek}
-          className="px-4 py-2 bg-blue-500 text-white rounded-md"
-        >
+
+        <Button onClick={nextWeek} variant="outline" size="sm">
           <ChevronRight />
         </Button>
-      </header>
-      
-      {/* Week header with days */}
-      <div className="grid grid-cols-8 border-b border-gray-200">
-        <div className="h-12 border-r border-gray-200"></div>
-        {weekDates.map((date, index) => (
-          <div 
-            key={index} 
-            className={`h-12 flex flex-col items-center justify-center font-semibold border-r border-gray-200 ${
-              date.toDateString() === new Date().toDateString() ? 'bg-blue-50' : ''
-            }`}
-          >
-            <div>{date.toLocaleDateString('en-US', { weekday: 'short' })}</div>
-            <div>{date.getDate()}</div>
-          </div>
-        ))}
+        </div>
       </div>
-      
-      {/* Time grid */}
-      <div className="grid grid-cols-8 h-[calc(100vh-12rem)] overflow-y-auto">
-        {/* Time labels */}
-        <div className="col-span-1">
-          {timeSlots.map((hour, index) => (
-            <div 
-              key={index} 
-              className="h-20 border-b border-r border-gray-200 text-sm text-right pr-2 pt-0"
-            >
-              {`${hour > 12 ? hour - 12 : hour}${hour >= 12 ? 'PM' : 'AM'}`}
+
+      <div className="flex">
+        <div className="w-20 pr-2 flex-shrink-0 h-16"></div>
+
+        <div className="flex-1 grid grid-cols-7  pb-2">
+          {getWeek().map((dayName, index) => {
+            const date = weekDates[index];
+            return (
+              <div
+                key={index}
+                className="text-center flex flex-col items-center py-2"
+              >
+                <div className="font-medium text-gray-600">{dayName}</div>
+                <div
+                  className={`text-lg font-bold rounded-full w-8 flex items-center justify-center`}
+                >
+                  {date.getDate()}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Scrollable area with both time column and grid */}
+      <div className="flex flex-1 border-b border-t border-gray-300 overflow-y-auto">
+        <div className="w-20 pr-2 flex-shrink-0">
+          {timeLine.map((time, index) => (
+            <div key={index} className="h-24 flex items-start sticky left-0">
+              <div className="text-gray-600 text-sm">{time}:00</div>
             </div>
           ))}
         </div>
-        
-        {/* Day columns */}
-        {weekDates.map((_, dayIndex) => (
-          <div key={dayIndex} className="col-span-1">
-            {timeSlots.map((_, hourIndex) => (
-              <div 
-                key={hourIndex} 
-                className="h-20 border-b border-r border-gray-200 hover:bg-gray-50"
-              >
-                {/* Event cells would go here */}
-              </div>
-            ))}
-          </div>
-        ))}
+
+        <div className="flex-1 grid grid-cols-7">
+          {Array.from({ length: 7 }).map((_, dayIndex) => (
+            <div key={dayIndex} 
+            onClick={() => onDateSelect(weekDates[dayIndex])}
+            className="border-l border-gray-300 relative">
+              {timeLine.map((_, timeIndex) => (
+                <div
+                  key={timeIndex}
+                  className="h-24 border-b border-gray-300 hover:bg-gray-100 relative cursor-pointer"
+                ></div>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
+
+export default withCalendarAction(WeekDay);

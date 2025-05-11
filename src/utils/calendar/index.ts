@@ -16,6 +16,11 @@ export const getMonth = (month: number) => {
     return months[month];
 };
 
+export const getWeek = () => {
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    return days;
+}
+
 export const getView = () => {
     return [
         {

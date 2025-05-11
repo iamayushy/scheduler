@@ -7,7 +7,7 @@ import WeekDay from "./weekDay";
 import SingleDay from "./singleDay";
 
 export default function Calendar() {
-  const [switchMode, setSwitchMode] = useState("day");
+  const [switchMode, setSwitchMode] = useState("week");
 
   return (
     <section className="flex flex-col gap-4 w-full">
@@ -20,7 +20,7 @@ export default function Calendar() {
         />
       </div>
 
-      <div className="w-full h-full rounded-lg shadow-sm bg-white p-1">
+      <div className="w-full  rounded-lg  bg-white p-1">
         {switchMode === "month" && <Month />}
         {switchMode === "week" && <WeekDay />}
         {switchMode === "day" && <SingleDay />}
