@@ -28,10 +28,10 @@ export default function DropDown({
   }, []);
 
   return (
-    <div ref={dropdownRef} className="relative w-52">
+    <div ref={dropdownRef} className="relative w-full">
       <button
         type="button"
-        className="flex items-center justify-between w-full px-3 py-2 text-sm bg-white border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+        className="flex items-center justify-between w-full px-3 py-2 text-sm bg-white border border-black rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>{selectedOption.label}</span>

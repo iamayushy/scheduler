@@ -12,7 +12,7 @@ export default function Login() {
     email: "",
     password: "",
   });
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const user = fakeUsers.find((user) => user.email === form.email && user.password === form.password);
     if (user) {
@@ -58,7 +58,7 @@ export default function Login() {
 
             <Button
               type="submit"
-              className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition-colors"
+              className="w-full"
             >
               Proceed To Dashboard
             </Button>

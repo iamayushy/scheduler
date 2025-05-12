@@ -2,9 +2,12 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import useCalendar from "../../hooks/calendar";
 import Button from "../ui/button";
 import { getWeek } from "../../utils/calendar";
+import SessionForm from "./sessionModal";
+import { useState } from "react";
 
 function WeekDay() {
   const { currentWeek, prevWeek, nextWeek } = useCalendar();
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const generateWeekDates = () => {
     const dates = [];
@@ -19,9 +22,14 @@ function WeekDay() {
 
   const weekDates = generateWeekDates();
   const timeLine = Array.from({ length: 13 }, (_, index) => index + 8);
+  const handleForm = () => {
+    setIsFormOpen((prev) => !prev);
+  };
 
   return (
     <section className="p-4 bg-white h-[calc(100vh-12rem)] flex flex-col">
+      <SessionForm isOpen={isFormOpen} handleClose={handleForm} />
+
       <div className="flex justify-end items-center mb-4 gap-4">
         <div className="font-semibold">
           {weekDates[0].getMonth() !== weekDates[6].getMonth()
@@ -36,13 +44,13 @@ function WeekDay() {
               })}
         </div>
         <div className="flex justify-end items-center gap-1">
-        <Button onClick={prevWeek} size="sm">
-          <ChevronLeft />
-        </Button>
+          <Button onClick={prevWeek} size="sm">
+            <ChevronLeft />
+          </Button>
 
-        <Button onClick={nextWeek} size="sm">
-          <ChevronRight />
-        </Button>
+          <Button onClick={nextWeek} size="sm">
+            <ChevronRight />
+          </Button>
         </div>
       </div>
 
@@ -81,12 +89,11 @@ function WeekDay() {
 
         <div className="flex-1 grid grid-cols-7">
           {Array.from({ length: 7 }).map((_, dayIndex) => (
-            <div key={dayIndex} 
-            className="border-l border-gray-300 relative">
+            <div key={dayIndex} className="border-l border-gray-300 relative">
               {timeLine.map((_time, timeIndex) => (
                 <div
                   key={timeIndex}
-                  // onClick={() => onDateSelect({date: weekDates[dayIndex], time})}
+                  onClick={handleForm}
                   className="h-24 border-b border-gray-300 hover:bg-gray-100 relative cursor-pointer"
                 ></div>
               ))}

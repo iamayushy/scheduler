@@ -3,6 +3,7 @@ import { type InputHTMLAttributes, forwardRef } from 'react';
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
+  info?: string;
   fullWidth?: boolean;
   className?: string;
   containerClassName?: string;
@@ -15,6 +16,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     {
       label,
       error,
+      info,
       fullWidth = false,
       className = '',
       containerClassName = '',
@@ -56,6 +58,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
           {...props}
         />
+        {info && (
+          <p className={combineClasses(
+            'text-xs', 
+          )}>
+            {info}
+          </p>
+        )}
         {error && (
           <p className={combineClasses(
             'text-xs text-destructive', 

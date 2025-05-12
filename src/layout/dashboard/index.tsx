@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import { Link, useLocation } from "react-router-dom";
 import { userContext } from "../../context/userContext";
 import Button from "../../components/ui/button";
+import SessionContext from "../../context/sessionContext";
 
 
 export default function Dashboard() {
@@ -89,9 +90,11 @@ export default function Dashboard() {
         </aside>
         
         {/* Main content */}
+        <SessionContext>
         <main className="flex-1 p-6">
           <Outlet />
         </main>
+        </SessionContext>
       </div>
     </div>
   );

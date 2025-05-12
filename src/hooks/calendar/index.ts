@@ -17,6 +17,7 @@ export default function useCalendar() {
   const [currentWeek, setCurrentWeek] = useState<Date>(new Date());
   const [currentDay, setCurrentDay] = useState<Date>(new Date());
 
+
   const nextDay = () => {
     const nextDay = new Date(currentDay);
     nextDay.setDate(currentDay.getDate() + 1);
