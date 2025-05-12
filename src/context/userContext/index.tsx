@@ -1,30 +1,25 @@
-import { createContext, useReducer, type ReactNode } from "react";
+import { createContext, useState, useEffect, type ReactNode } from "react";
 
 interface UserState {
   name: string;
   email: string;
-  password: string;
-  phone: string;
-  address: string;
   role: string;
 }
-
-type UserAction = 
-  | { type: 'UPDATE_USER'; payload: Partial<UserState> }
-  | { type: 'RESET_USER' };
-
-const initialState: UserState = {
-  name: "user",
-  email: "EMAIL",
-  password: "user",
-  phone: "0123456789",
-  address: "user",
-  role: "user",
-};
 
 interface UserContextType extends UserState {
   updateUser: (userData: Partial<UserState>) => void;
   resetUser: () => void;
+}
+
+const user = localStorage.getItem('user');
+let initialState: UserState = {
+  name: "",
+  email: "",
+  role: "",
+};
+if (user) {
+  const parsedUser = JSON.parse(user);
+  initialState = parsedUser;
 }
 
 export const userContext = createContext<UserContextType>({
@@ -33,36 +28,36 @@ export const userContext = createContext<UserContextType>({
   resetUser: () => {},
 });
 
-const userReducer = (state: UserState, action: UserAction): UserState => {
-  switch (action.type) {
-    case 'UPDATE_USER':
-      return { ...state, ...action.payload };
-    case 'RESET_USER':
-      return initialState;
-    default:
-      return state;
-  }
-};
-
 interface UserContextProviderProps {
   children: ReactNode;
 }
 
 export default function UserContext({ children }: UserContextProviderProps) {
-  const [state, dispatch] = useReducer(userReducer, initialState);
+  const [state, setState] = useState<UserState>(initialState);
+
+  useEffect(() => {
+    if(user) {
+      setState(JSON.parse(user));
+    }
+  }, []);
 
   const updateUser = (userData: Partial<UserState>) => {
-    dispatch({ type: 'UPDATE_USER', payload: userData });
+    const newState = { ...state, ...userData };
+    localStorage.setItem('user', JSON.stringify(newState));
+    setState(newState);
   };
 
   const resetUser = () => {
-    dispatch({ type: 'RESET_USER' });
+    setState(initialState);
+    localStorage.removeItem('user');
   };
+
+  const userData = {...state};
 
   return (
     <userContext.Provider 
       value={{
-        ...state,
+        ...userData,
         updateUser,
         resetUser
       }}

@@ -11,6 +11,9 @@ export default function Month() {
   return (
     <section className="p-4 bg-white rounded-md">
       <header className="flex justify-end gap-4  items-center mb-4">
+        <div className="text-lg font-semibold">
+          {getMonth(month)} {year}
+        </div>
         <Button
           size="sm"
           onClick={prevMonth}
@@ -18,9 +21,7 @@ export default function Month() {
         >
           <ChevronLeft />
         </Button>
-        <div className="text-lg font-semibold">
-          {getMonth(month)} {year}
-        </div>
+
         <Button
           size="sm"
           onClick={nextMonth}
@@ -37,7 +38,7 @@ export default function Month() {
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-7 w-full h-[calc(100vh-13rem)]">
+        <div className="grid grid-cols-7 w-full h-[calc(100vh-20rem)]">
           {Array.from({ length: fillEmptyCells }, (_, index) => {
             const day = index - firstDayOfMonth + 1;
             const isPositiveDay = day > 0 && day <= totalDays;

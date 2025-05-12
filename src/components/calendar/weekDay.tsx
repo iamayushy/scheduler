@@ -2,9 +2,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import useCalendar from "../../hooks/calendar";
 import Button from "../ui/button";
 import { getWeek } from "../../utils/calendar";
-import withCalendarAction from "../../hoc/calendar";
 
-function WeekDay({onDateSelect}: any) {
+function WeekDay() {
   const { currentWeek, prevWeek, nextWeek } = useCalendar();
 
   const generateWeekDates = () => {
@@ -22,7 +21,7 @@ function WeekDay({onDateSelect}: any) {
   const timeLine = Array.from({ length: 13 }, (_, index) => index + 8);
 
   return (
-    <section className="p-4 bg-white h-[calc(100vh-5rem)] flex flex-col">
+    <section className="p-4 bg-white h-[calc(100vh-12rem)] flex flex-col">
       <div className="flex justify-end items-center mb-4 gap-4">
         <div className="font-semibold">
           {weekDates[0].getMonth() !== weekDates[6].getMonth()
@@ -37,11 +36,11 @@ function WeekDay({onDateSelect}: any) {
               })}
         </div>
         <div className="flex justify-end items-center gap-1">
-        <Button onClick={prevWeek} variant="outline" size="sm">
+        <Button onClick={prevWeek} size="sm">
           <ChevronLeft />
         </Button>
 
-        <Button onClick={nextWeek} variant="outline" size="sm">
+        <Button onClick={nextWeek} size="sm">
           <ChevronRight />
         </Button>
         </div>
@@ -83,11 +82,11 @@ function WeekDay({onDateSelect}: any) {
         <div className="flex-1 grid grid-cols-7">
           {Array.from({ length: 7 }).map((_, dayIndex) => (
             <div key={dayIndex} 
-            onClick={() => onDateSelect(weekDates[dayIndex])}
             className="border-l border-gray-300 relative">
-              {timeLine.map((_, timeIndex) => (
+              {timeLine.map((_time, timeIndex) => (
                 <div
                   key={timeIndex}
+                  // onClick={() => onDateSelect({date: weekDates[dayIndex], time})}
                   className="h-24 border-b border-gray-300 hover:bg-gray-100 relative cursor-pointer"
                 ></div>
               ))}
@@ -99,4 +98,4 @@ function WeekDay({onDateSelect}: any) {
   );
 }
 
-export default withCalendarAction(WeekDay);
+export default WeekDay;

@@ -5,13 +5,20 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 export default function SingleDay() {
   const { prevDay, nextDay, currentDay } = useCalendar();
   
-  // Create time slots from 8 AM to 8 PM
   const timeSlots = Array.from({ length: 13 }, (_, i) => i + 8);
   
   return (
     <section className="p-4 bg-white rounded-md">
       <header className="flex justify-end  items-center mb-4">
         <div className="flex items-center gap-4">
+        <h2 className="text-xl font-semibold">
+            {currentDay.toLocaleDateString('en-US', { 
+              weekday: 'long', 
+              month: 'long', 
+              day: 'numeric',
+              year: 'numeric' 
+            })}
+          </h2>
           <Button
             size="sm"
             onClick={prevDay}
@@ -20,14 +27,6 @@ export default function SingleDay() {
             
             <ChevronLeft size={18} />
           </Button>
-          <h2 className="text-xl font-semibold">
-            {currentDay.toLocaleDateString('en-US', { 
-              weekday: 'long', 
-              month: 'long', 
-              day: 'numeric',
-              year: 'numeric' 
-            })}
-          </h2>
           <Button
             size="sm"
             onClick={nextDay}
@@ -38,8 +37,7 @@ export default function SingleDay() {
         </div>
       </header>
       
-      <div className="grid grid-cols-[80px_1fr] h-[calc(100vh-12rem)] overflow-y-auto border border-gray-200 rounded-md">
-        {/* Time slots */}
+      <div className="grid grid-cols-[80px_1fr] h-[calc(100vh-18rem)] overflow-y-auto border border-gray-200 rounded-md">
         <div className="border-r border-gray-200">
           {timeSlots.map((hour, index) => (
             <div 

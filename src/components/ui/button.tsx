@@ -35,7 +35,7 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   ...props
 }) => {
-  const baseStyles = "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
+  const baseStyles = "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer";
   
   const variantStyles: Record<ButtonVariant, string> = {
     default: "bg-primary text-white hover:bg-primary/90",

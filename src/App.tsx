@@ -1,11 +1,14 @@
 import './App.css'
-import Calendar from './components/calendar'
+import UserContext from './context/userContext'
+import AppRoutes from './routes'
 
 function App() {
 
   return (
     <div>
-      <Calendar />
+      <UserContext>
+      <AppRoutes />
+      </UserContext>
     </div>
   )
 }
