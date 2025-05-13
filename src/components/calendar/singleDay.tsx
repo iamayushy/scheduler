@@ -115,7 +115,7 @@ export default function SingleDay() {
                  
                   
                   if (hour === sessionStartHour) {
-                    const {_arbitrator, ...otherData} = session;
+                    const {...otherData} = session;
                     const durationInHours =
                       sessionEndHour -
                       sessionStartHour +
