@@ -23,6 +23,8 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      '@typescript-eslint/no-explicit-any': 'off', // Allow any type
+      '@typescript-eslint/explicit-module-boundary-types': 'off', // No need to explicitly specify return types
     },
   },
 )

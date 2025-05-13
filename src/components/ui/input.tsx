@@ -39,7 +39,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label className={combineClasses(
             'text-sm font-medium text-foreground', 
-            labelClassName
           )}>
             {label}
           </label>

@@ -5,7 +5,6 @@ import DropDown from "../ui/dropDown";
 import Month from "./months";
 import WeekDay from "./weekDay";
 import SingleDay from "./singleDay";
-import SessionContext from "../../context/sessionContext";
 
 export default function Calendar() {
   const [switchMode, setSwitchMode] = useState("week");

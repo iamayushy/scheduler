@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createContext, useState, type ReactNode } from "react";
 
 
@@ -29,9 +30,9 @@ if (allSessions) {
 
 export const sessionContext = createContext({
     ...initialState,
-    createSession: (data) => {},
-    updateSession: (data) => {},
-    deleteSession: (data) => {},
+    createSession: (_data: any) => {},
+    updateSession: (_data: any) => {},
+    deleteSession: (_data: any) => {},
 })
 
 export default function SessionContext({ children }: { children: ReactNode }) {
@@ -46,7 +47,7 @@ export default function SessionContext({ children }: { children: ReactNode }) {
     const updateSession = (updatedSession: Session) => {
         
         const newSessions = sessions.map(session =>
-            session.case === updateSession.case ? updatedSession : session
+            session.case === updatedSession.case ? updatedSession : session
         );
         setSessions(newSessions);
         localStorage.setItem("sessions", JSON.stringify(newSessions));

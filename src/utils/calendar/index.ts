@@ -38,16 +38,20 @@ export const getView = () => {
     ]
 }
 
-export const getWeekDates = () => {
-    const dates = [];
-    const firstDayOfWeek = new Date(new Date());
-    const day = firstDayOfWeek.getDay();
-    firstDayOfWeek.setDate(firstDayOfWeek.getDate() - day);
-    
-    for (let i = 0; i < 7; i++) {
-      const date = new Date(firstDayOfWeek);
-      date.setDate(firstDayOfWeek.getDate() + i);
-      dates.push(date);
+
+export default function getTiming() {
+    const hours = [];
+    for (let i = 11; i <= 16; i++) {
+        const hour = i > 12 ? i - 12 : i;
+        const period = i >= 12 ? 'PM' : 'AM';
+        hours.push({
+            label: `${hour}:00 ${period}`,
+            value: `${i}:00`,
+        });
+        hours.push({
+            label: `${hour}:30 ${period}`,
+            value: `${i}:30`,
+        });
     }
-    return dates;
-};
+    return hours;
+}

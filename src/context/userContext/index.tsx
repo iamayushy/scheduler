@@ -4,6 +4,7 @@ interface UserState {
   name: string;
   email: string;
   role: string;
+  id: string;
 }
 
 interface UserContextType extends UserState {
@@ -16,6 +17,7 @@ let initialState: UserState = {
   name: "",
   email: "",
   role: "",
+  id: "",
 };
 if (user) {
   const parsedUser = JSON.parse(user);

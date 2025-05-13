@@ -1,4 +1,4 @@
-import { Briefcase, Calendar, LogOut, MessageSquare, User } from "lucide-react";
+import { Calendar, LogOut} from "lucide-react";
 import { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import { Link, useLocation } from "react-router-dom";
@@ -13,9 +13,6 @@ export default function Dashboard() {
   
   const navItems = [
     { name: "Calendar", path: "/dashboard", icon: <Calendar /> },
-    { name: "Sessions", path: "/dashboard/sessions", icon: <MessageSquare /> },
-    { name: "Cases", path: "/dashboard/cases", icon: <Briefcase /> },
-    { name: "Participants", path: "/dashboard/participants", icon: <User /> },
   ];
 
   const logout = () => {
