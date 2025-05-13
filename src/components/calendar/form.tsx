@@ -52,7 +52,6 @@ export default function Form({onSubmit, updateFormData, isEditing}: FormProps) {
   const handleDrop = (data: {name: string, value: string}) => {
     const { name, value } = data;
     
-    // When case changes, update claimant and respondent
     if (name === "case") {
       const selectedCase = cases.find(c => c.case_id === value);
       setFormData({
@@ -81,7 +80,6 @@ export default function Form({onSubmit, updateFormData, isEditing}: FormProps) {
     setError("");
     setSuccess("");
     
-    // Validate all required fields
     if (!formData.case || !formData.date || !formData.startTime || !formData.endTime) {
       setError("Please fill in all required fields");
       return;
@@ -147,7 +145,6 @@ export default function Form({onSubmit, updateFormData, isEditing}: FormProps) {
     
     try {
       if (isEditing) {
-        // Update existing session
         updateSession(session);
         console.log("Session updated:", session);
         setSuccess("Session updated successfully!");
