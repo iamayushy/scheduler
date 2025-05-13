@@ -8,7 +8,7 @@ export const dashboardRoutes = [
         guard: AuthGuard,
         children: [
             {
-                path: "/dashboard",
+                path: "dashboard",
                 component: React.lazy(() => import("../../components/calendar")),
             }
         ]
