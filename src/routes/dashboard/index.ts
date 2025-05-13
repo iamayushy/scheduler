@@ -3,7 +3,7 @@ import AuthGuard from "../../guard";
 
 export const dashboardRoutes = [
     {
-        path: "",
+        path: "/",
         component: React.lazy(() => import("../../layout/dashboard")),
         guard: AuthGuard,
         children: [
