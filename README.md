@@ -24,6 +24,7 @@ The development of the Arbitration Session Scheduler is based on the following a
 
 - **User Roles**: It is assumed that the primary users are arbitrators, with distinct roles and permissions tailored to their specific needs.
 - **Cases as Primary Entities**: Cases are considered the central entities that require scheduling and management. Each case involves a claimant and a respondent and is linked to a specific arbitrator, underscoring the importance of precise and organized scheduling.
+- **Create and Edit**: The application allows users to create and edit sessions, ensuring that all necessary details are captured accurately.
 
 ## Installation
 
